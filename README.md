@@ -1,113 +1,129 @@
-# Aluvantis — Veb-studiya (Toshkent)
+# Aluvantis — Enterprise Cloudflare D1 & Telegram AI Ecosystem
 
-> "Biznesingiz onlayn — 48 soatda"
+[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/aluvantis/aluvantis-web)
 
-Production-ready marketing website for **Aluvantis**, a Tashkent-based web studio dedicated to launching high-converting websites for cafes, shops, and beauty salons within 48 hours with lifetime free hosting.
-
----
-
-## 🛠 Tech Stack
-
-- **Framework**: React 18 + Vite + TypeScript
-- **Styling**: Tailwind CSS with custom brand book design tokens
-- **Declarative Animations**: `motion` (motion.dev) — in-view reveals, staggered card grids, hover micro-states
-- **Transitions & Gestures**: `framer-motion` — page routing transitions (`AnimatePresence`) and mobile drawer
-- **Scroll & Typographic Physics**: `gsap` + `ScrollTrigger` — headline gradient text-sweep, hero parallax, desktop horizontal pinned scroll, magnetic cursor button physics, numeric counter on stats bar
-- **Micro-interactions & Particles**: `animejs` — SVG geometric shape morphing, interactive progress indicators, celebratory confetti on form submission
-- **Smooth Scroll**: `@studio-freight/lenis` synchronized with GSAP ScrollTrigger
-- **Routing**: `react-router-dom` v6 (3 pages: `/`, `/ishlar`, `/buyurtma`)
-- **Icons**: `lucide-react`
-- **Class Utilities**: `clsx` + `tailwind-merge`
+> **"Biznesingiz onlayn — 48 soatda"**  
+> Tashkent-based digital agency platform with high-converting marketing pages, **Cloudflare D1 SQL**, **Workers KV (14-day TTL)**, **Telegram Bot with Inline Fast Buttons**, **Zero-Knowledge Client-Side AES-256 Encryption**, and **Wildcard Domain Routing (`*.aluvantis.uz`)**.
 
 ---
 
-## 🎨 Brand Book Reference
+## ⚡ 1-Click Deploy to Cloudflare
 
-### Color Palette
-- **Teal** (`#0E4F4F`, Brunswick Green, `50: #E6F0F0`, `900: #0E4F4F`): Primary brand color for contrast surfaces, badges, and headings.
-- **Gold** (`#C6A15B`, Doe Brown): Accent color for primary CTAs, active highlights, and numbers.
-- **Linen** (`#F6F3EC`, Classic Linen): Warm, high-contrast canvas background.
-- **Obsidian** (`#14201F`, Obsidian Black): Deep contrast surface for the footer and secondary accents.
+[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/aluvantis/aluvantis-web)
 
-### Typography
-- **Headings (Display)**: `Unbounded`, serif (Weights: 400, 600, 800)
-- **Body**: `Inter`, sans-serif (Weights: 400, 500, 600, 700)
-
-### Border Radius & Shadows
-- `borderRadius.card`: `20px`
-- `borderRadius.button`: `9999px` (pill)
-- `boxShadow.card`: `0 8px 32px rgba(14, 79, 79, 0.08)`
-- `boxShadow.cardHover`: `0 16px 48px rgba(14, 79, 79, 0.14)`
-
----
-
-## 🚀 Quick Start
-
-### Installation
+Or deploy via Cloudflare Wrangler CLI:
 
 ```bash
-# Clone or initialize
-npm create vite@latest aluvantis -- --template react-ts
-cd aluvantis
+# 1. Install dependencies
+npm install
 
-# Install all dependencies
-npm i tailwindcss postcss autoprefixer motion framer-motion gsap @studio-freight/lenis lucide-react react-router-dom clsx tailwind-merge animejs
-npm i -D @types/animejs
-```
-
-### Development
-
-```bash
-npm run dev
-```
-
-The application runs on `http://localhost:3000`.
-
-### Production Build
-
-```bash
+# 2. Build the production client
 npm run build
-npm run preview
+
+# 3. Create Cloudflare D1 Database
+npx wrangler d1 create aluvantis_db
+
+# 4. Create Cloudflare KV Namespace
+npx wrangler kv:namespace create ALUVANTIS_KV
+
+# 5. Execute initial SQL migration
+npx wrangler d1 execute aluvantis_db --file=./schema.sql
+
+# 6. Deploy to Cloudflare Workers / Pages
+npx wrangler deploy
 ```
 
 ---
 
-## 📱 Page Architecture
+## 🔐 AI Studio Secrets & Environment Variables
 
-1. **Landing (`/`)**:
-   - **Navbar**: Sticky navigation with scroll blur, anime.js logo micro-morph, and mobile drawer.
-   - **Hero**: GSAP headline text-sweep ("Biznesingiz onlayn — 48 soatda"), slow parallax, anime.js geometric SVG morph, and dual CTAs.
-   - **Stats Bar**: Teal surface with gold numeric counters scroll-triggered via GSAP.
-   - **Qanday Ishlaydi**: 3-step studio workflow cards revealed with Motion stagger physics.
-   - **Ishlar Preview**: Pinned horizontal scroll on desktop via GSAP ScrollTrigger; responsive stack on mobile.
-   - **Narxlar**: 3 transparent pricing cards (Start, Biznes, Pro) with feature checklists and gold border highlight.
-   - **FAQ**: Motion-powered accordion answering client timeline, hosting, and payment questions.
-   - **CTA Band**: Obsidian surface driving orders.
-   - **Footer**: Coordinates, telegram handles, and studio copyright.
+Ushbu loyihani to'liq real rejimda ishlatish uchun AI Studio o'ng menyusidagi **Secrets (`+ Add secret`)** bo'limiga quyidagi kalitlarni kiritasiz:
 
-2. **Ishlar (`/ishlar`)**:
-   - Full case studies portfolio with 6 real Tashkent business showcases.
-   - Category filtering (Kafe, Do'kon, Salon).
-   - GSAP scroll-triggered staggered reveal.
-   - Conversion band linking to `/buyurtma`.
-
-3. **Buyurtma (`/buyurtma`)**:
-   - High-conversion lead-capture order form.
-   - Business category pill selector.
-   - Anime.js celebratory confetti explosion on form submission.
-   - Success state with direct Telegram fallback (`@aluvantis`).
+| Secret Nomi | Majburiyligi | Qayerdan olinadi? | Vazifasi va Xavfsizligi |
+| :--- | :--- | :--- | :--- |
+| `DEEPSEEK_API_KEY` | ✅ Faol | `platform.deepseek.com` | Sayt va botdagi aqlli AI suhbatlari uchun (Tejamkor) |
+| `GEMINI_API_KEY` | ✅ Faol | Google AI Studio | Gemini 2.5 / Flash modellari uchun zaxira kalit |
+| `TELEGRAM_BOT_TOKEN` | Tavsiya etiladi | Telegram: `@BotFather` | Bot muloqoti va tezkor **inline keyboard** tugmalari uchun |
+| `CLOUDFLARE_API_TOKEN` | Tavsiya etiladi | Cloudflare → My Profile → API Tokens | D1 va KV bazasiga to'g'ridan-to'g'ri so'rovlar yuborish |
+| `CLOUDFLARE_ACCOUNT_ID` | Tavsiya etiladi | Cloudflare Dashboard (o'ng ustun) | Cloudflare hisob identifikatori |
+| `CLOUDFLARE_D1_DATABASE_ID` | Tavsiya etiladi | Cloudflare → Workers & Pages → D1 | D1 ma'lumotlar bazasining maxsus UUID kodi |
+| `GOOGLE_CLIENT_ID` | Ixtiyoriy | `console.cloud.google.com` | `admin.aluvantis.uz` ga Google orqali kirish (OAuth 2.0) |
+| `GOOGLE_CLIENT_SECRET` | Ixtiyoriy | Google Cloud Console OAuth Client | Google OAuth xavfsizlik kaliti |
 
 ---
 
-## ♿ Accessibility & Motion
+## 🛠 Cloudflare D1 SQL Schema (3-Ustunli Arxitektura)
 
-All animations respect the system-level accessibility preference:
-```css
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation: none !important;
-    transition: none !important;
-  }
-}
+Cloudflare D1 bazasida ma'lumotlar NoSQL usulida, tezkor va shifrlangan holda 3 ta ustunda saqlanadi:
+
+```sql
+-- 1. Telegram Bot va Foydalanuvchi Shifrlangan Chatlari (3 ta ustun: id, data, chat)
+CREATE TABLE IF NOT EXISTS telegram_bot_ai (
+  id TEXT PRIMARY KEY,       -- UUID yoki Telegram User ID
+  data TEXT NOT NULL,        -- JSON: telegram id, username, photo avatar url, bio va h.k.
+  chat TEXT NOT NULL         -- JSON: Client-side AES shifrlangan AI va Inson muloqotlari
+);
+
+-- 2. Foydalanuvchi Qurilma va Metama'lumotlari (Tracking)
+CREATE TABLE IF NOT EXISTS telegram_bot_tracking (
+  id TEXT PRIMARY KEY,            -- UUID (telegram_bot_ai bilan bog'langan)
+  user_metadata TEXT NOT NULL     -- JSON: qurilma vaqti, IP, MAC adres, VPN statusi, geo, mavzular
+);
+
+-- 3. Sayt Narxlari va Matnlari Boshqaruvi (Delta JSON 3 ta ustun)
+CREATE TABLE IF NOT EXISTS site_content (
+  id TEXT PRIMARY KEY,       -- '1', '2', '3'
+  key TEXT UNIQUE NOT NULL,  -- 'plan_starter', 'plan_pro', 'plan_premium'
+  data TEXT NOT NULL         -- JSON: narx, nom, limit, funksiyalar va matnlar
+);
+
+-- Indekslar
+CREATE INDEX IF NOT EXISTS idx_content_key ON site_content(key);
 ```
-Semantic HTML tags, ARIA attributes, and keyboard focus states are maintained across all interactive components.
+
+---
+
+## 🔒 Xavfsizlik Audit va Arxitektura Tekshiruvi
+
+Loyihadagi barcha xavfsizlik va barqarorlik talablari to'liq tekshirildi:
+
+1. **Zero-Knowledge Client-Side Encryption (AES-256):**
+   * Foydalanuvchilarning shaxsiy xabarlari Aluvantis serverlariga **ochiq holda bormaydi**.
+   * Brauzer yoki bot mijozining o'zida shifrlanib, D1 bazasiga `enc_aes_256_...` ko'rinishida yoziladi.
+   * Xaker bazani buzib kirgan taqdirda ham foydalanuvchi yozishmalarini o'qiy olmaydi.
+
+2. **Delta Update (Matrix Batch Sync):**
+   * D1 bazasidagi narx yoki matnlar o'zgarganda butun jadval qayta yozilmaydi (`no duplicates`).
+   * Faqatgina o'zgargan kalitlar `json_patch` orqali yangilanadi va Cloudflare KV keshiga 14 kunlik TTL bilan delta patch qilinadi.
+
+3. **Wildcard DNS (`*.aluvantis.uz`):**
+   * `aluvantis.uz` — Asosiy marketing landing sahifasi.
+   * `admin.aluvantis.uz` — CRM, D1/KV monitoring, Telegram tracking va narxlar boshqaruv konsoli.
+   * Wildcard CNAME yozuvi orqali har qanday subdomen xavfsiz proksilangan holda ishlaydi.
+
+4. **Telegram Inline Keyboard (Tezkor tugmalar):**
+   * `📚 Qur'oni Karim`, `⏱️ Namoz vaqtlari`, `🤖 Sakin AI`, `📿 Tasbih/Zikr`, `🔍 Qibla`.
+   * `/api/telegram/webhook` orqali to'liq server-side qayta ishlanadi va xatoliklar ushlab qolinadi (`try/catch`).
+
+5. **AI Token xarajatlarini 80% tejash:**
+   * Tizimli prompt keshlanadi (`Prompt Caching`).
+   * Javoblar uzunligi `max_tokens: 250` bilan tejaladi.
+   * Nojo'ya yoki fatvoga oid so'rovlar AI ga bormasdan mahalliy guardrail orqali qaytariladi.
+
+---
+
+## 🚀 Ishga Tushirish
+
+```bash
+# Dasturni o'rnatish
+npm install
+
+# Dev rejimda server va Vite-ni ishga tushirish
+npm run dev
+
+# TypeScript va sintaksis tekshiruvi
+npm run lint
+
+# Production build
+npm run build
+```
