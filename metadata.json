@@ -1,0 +1,6 @@
+{
+  "name": "Aluvantis — Veb-studiya",
+  "description": "Toshkentda kafe, do'kon va salonlar uchun 48 soatda tayyor veb-saytlar. Biznesingiz onlayn — 48 soatda.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
